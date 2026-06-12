@@ -1,0 +1,24 @@
+name: Build APK
+
+on:
+  push:
+    paths:
+      - '**.aia'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Build APK
+        uses: Kodular/aia-to-apk-action@v1
+        with:
+          aia-path: 'BotonSeguro.aia'
+          
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: app-release
+          path: ./*.apk
